@@ -71,3 +71,21 @@ function isIsomorphic(s, t) {
 
   return result.localeCompare(t) === 0;
 }
+
+// #392 - Is Subsequence
+
+function isSubsequence(s, t) {
+  const subseq = s.split("");
+  const searchString = t.split("");
+
+  for (char of searchString) {
+    if (subseq.length > 0 && char.localeCompare(subseq[0]) === 0) {
+      subseq.shift();
+    }
+  }
+
+  return subseq.length === 0;
+}
+
+console.log(isSubsequence("abc", "ahbgdc"));
+console.log(isSubsequence("axc", "ahbgdc"));
