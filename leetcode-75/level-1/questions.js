@@ -172,7 +172,28 @@ function mergeTwoListsHelper(numbersToSort) {
   }
 }
 
-const list1 = new ListNode(5, null);
-const list2 = new ListNode(1, new ListNode(2, new ListNode(4)));
+// #206 - Reverse Linked List
 
-console.log(mergeTwoLists(list1, list2).toString());
+function reverseList(head) {
+  if (head === null) {
+    return null;
+  }
+
+  if (head.next === null) {
+    return new ListNode(head.val, null);
+  }
+
+  let current = head,
+    previous = null;
+
+  while (current.next !== null) {
+    previous = current;
+    current = current.next;
+  }
+
+  if (previous) {
+    previous.next = null;
+  }
+
+  return new ListNode(current.val, reverseList(head));
+}
