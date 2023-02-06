@@ -87,5 +87,92 @@ function isSubsequence(s, t) {
   return subseq.length === 0;
 }
 
-console.log(isSubsequence("abc", "ahbgdc"));
-console.log(isSubsequence("axc", "ahbgdc"));
+// Day 3
+
+// #21 - Merge Two Sorted Lists
+
+class ListNode {
+  constructor(val, next) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+
+  toString() {
+    if (this.next) {
+      return `${this.val.toString()} ${
+        this.next ? this.next.toString() : "undefined"
+      }`;
+    } else {
+      return this.val;
+    }
+  }
+}
+
+function mergeTwoLists(list1, list2) {
+  if (list1 === null) {
+    return list2;
+  } else if (list2 === null) {
+    return list1;
+  }
+
+  // merge lists together before passing to a helper function
+  let current = list1;
+
+  while (current.next !== null) {
+    current = current.next;
+  }
+
+  current.next = list2;
+
+  return mergeTwoListsHelper(list1);
+}
+
+function mergeTwoListsHelper(numbersToSort) {
+  // Step 0: check for base case
+  if (numbersToSort === null) {
+    return null;
+  }
+
+  // (helper vars!)
+  let current = numbersToSort;
+  let min = current.val;
+  let index = 0,
+    minIndex = 0;
+
+  // Step 1: find min for current list
+  while (current !== null) {
+    if (current.val < min) {
+      min = current.val;
+      minIndex = index;
+    }
+
+    current = current.next;
+    index++;
+  }
+
+  // Step 2: cut it out of the list
+  // (Cutting the head out is a little different, thus the if block)
+  if (minIndex > 0) {
+    current = numbersToSort;
+    index = 0;
+
+    while (current !== null) {
+      if (index === minIndex - 1) {
+        current.next = current.next.next;
+      }
+
+      current = current.next;
+      index++;
+    }
+
+    // Step 3: Recurse!
+    return new ListNode(min, mergeTwoListsHelper(numbersToSort));
+  } else {
+    return new ListNode(min, mergeTwoListsHelper(numbersToSort.next));
+  }
+}
+
+const list1 = new ListNode(5, null);
+const list2 = new ListNode(1, new ListNode(2, new ListNode(4)));
+
+console.log(mergeTwoLists(list1, list2).toString());
