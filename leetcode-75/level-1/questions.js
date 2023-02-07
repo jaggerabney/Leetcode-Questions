@@ -234,3 +234,27 @@ function middleNode(head) {
 
   return current;
 }
+
+// #142 - Linked List Cycle II
+
+function detectCycle(head) {
+  let current = head,
+    result = null,
+    index = 0,
+    nodes = [];
+
+  while (current != null) {
+    if (nodes.find((node) => current.next === node)) {
+      result = current.next;
+      current.next = null;
+
+      return result;
+    }
+
+    index++;
+    nodes.push(current);
+    current = current.next;
+  }
+
+  return null;
+}
