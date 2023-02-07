@@ -197,3 +197,40 @@ function reverseList(head) {
 
   return new ListNode(current.val, reverseList(head));
 }
+
+// Day 4
+
+// #876 - Middle of the Linked List
+
+function middleNode(head) {
+  // helper vars
+  let current = head,
+    length = 0,
+    middleIndex = 0;
+
+  // Step 1: iterate through linked list to get length
+  // (the while loop condition uses current.next so as to be 0-indexed)
+  while (current.next != null) {
+    length++;
+
+    current = current.next;
+  }
+
+  // Step 2: find middleIndex, and round it up if it's not an integer
+  middleIndex = length / 2;
+
+  if (middleIndex % 2 !== 0) {
+    middleIndex = Math.ceil(middleIndex);
+  }
+
+  // Step 3: iterate through the list again and return the node at middleIndex
+  current = head;
+
+  while (middleIndex > 0) {
+    middleIndex--;
+
+    current = current.next;
+  }
+
+  return current;
+}
