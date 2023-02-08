@@ -258,3 +258,44 @@ function detectCycle(head) {
 
   return null;
 }
+
+// Day 5
+
+// #121 - Best Time to Buy and Sell Stock
+
+function maxProfit(prices) {
+  // let maxProfit = 0,
+  //   profit = 0;
+  // for (let dayToBuy = 0; dayToBuy < prices.length; dayToBuy++) {
+  //   for (let dayToSell = dayToBuy + 1; dayToSell < prices.length; dayToSell++) {
+  //     profit = prices[dayToSell] - prices[dayToBuy];
+  //     if (profit > maxProfit) {
+  //       maxProfit = profit;
+  //       buyIndex = dayToBuy;
+  //       sellIndex = dayToSell;
+  //     }
+  //   }
+  // }
+  // return maxProfit;
+
+  let minPrice = prices[0];
+  let maxProfit = 0,
+    potentialProfit = 0;
+
+  for (const price of prices) {
+    if (price < minPrice) {
+      minPrice = price;
+    }
+
+    potentialProfit = price - minPrice;
+
+    if (potentialProfit > maxProfit) {
+      maxProfit = potentialProfit;
+    }
+  }
+
+  return maxProfit;
+}
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+console.log(maxProfit([7, 6, 4, 3, 1]));
